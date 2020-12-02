@@ -1,0 +1,23 @@
+<%# link_to 'Sign up', new_user_path %>
+
+<%# work below %>
+
+<section class="top-bar" >
+  <% if session[:current_user] %>
+    <%= session[:current_user]['username'] %>
+    <div class="top-left-buttons">
+      <%= link_to 'New Event', new_event_path, class: "top-buttons" %>
+    </div>
+    <div class="top-right-buttons">
+      <%= link_to 'Sign Out', user_session_path(session), method: :delete,
+      class: "top-buttons" %>
+    </div>
+  <% else %>
+    <div class="top-left-buttons">
+      <%= link_to 'Sign in', new_user_session_path, class: "top-buttons" %>
+    </div>
+    <div class="top-right-buttons">
+      <%= link_to 'Sign up', new_user_path %>
+    </div>
+  <% end %>
+</section>
