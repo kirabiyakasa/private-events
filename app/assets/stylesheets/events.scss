@@ -1,0 +1,27 @@
+body {
+  background-color: lightslategrey;
+}
+
+.current-user-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.current-user {
+  font-size: 25px;
+  margin-right: 10px;
+}
+.current-user-name {
+  display: inline;
+  font-size: 25px;
+}
+
+.top-buttons {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.top-buttons:active {
+  color: darkslategray;
+}

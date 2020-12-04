@@ -1,0 +1,19 @@
+<div class="user-name">
+  <%= @user.username %>
+</div>
+
+<% if @user.created_events.any? %>
+  <div class="event-list-container">
+    <% @user.created_events.each do |event| %>
+      <div class="event-container"></div>
+        <div class="user-event"><%= event.id %></div>
+        <div class="user-event"><%= event.date %></div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <%# do something else maybe? %>
+<% end %>
+
+<br>
+<%= link_to '<<< Go Back', root_path, class: "go-back" %>

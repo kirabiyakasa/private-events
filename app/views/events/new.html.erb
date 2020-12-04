@@ -1,0 +1,13 @@
+<% if @event.errors.any? %>
+  <ul>
+  <% @event.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @event, :html => { :class => "new-event" } do |f| %>
+  <%= f.label :date, 'Event Date:', class: "event-date" %>
+  <%= f.date_field :date, as: :date, value: f.object.try(:strftime, "%m/%d/%Y") %>
+  <%= f.submit 'Create Event', class: "submit-button" %>
+<% end %>

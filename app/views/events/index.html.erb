@@ -4,7 +4,13 @@
 
 <section class="top-bar" >
   <% if session[:current_user] %>
-    <%= session[:current_user]['username'] %>
+    <div class="current-user-container">
+      <div class="current-user">Current User:</div>
+      <div class="current-user-name">
+      <%= link_to session[:current_user]['username'],
+      user_path(session[:current_user]['id']) %>
+      </div>
+    </div>
     <div class="top-left-buttons">
       <%= link_to 'New Event', new_event_path, class: "top-buttons" %>
     </div>
@@ -17,7 +23,20 @@
       <%= link_to 'Sign in', new_user_session_path, class: "top-buttons" %>
     </div>
     <div class="top-right-buttons">
-      <%= link_to 'Sign up', new_user_path %>
+      <%= link_to 'Sign up', new_user_path, class: "top-buttons" %>
     </div>
   <% end %>
+</section>
+
+<section>
+  <div class="event-list-container">
+    <% @events.each do |event| %>
+      <div class="event-container"></div>
+        <div class="user-event">
+        <%= link_to "Event ##{event.id}", event_path(event.id) %>
+        </div>
+        <div class="user-event"><%= event.date %></div>
+      </div>
+    <% end %>
+  </div>
 </section>
