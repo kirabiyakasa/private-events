@@ -3,4 +3,17 @@
   <div class="user-name"><%= @event.creator.username %>
   <div class="user-event"><%= "Event ##{@event.id}" %></div>
   <div class="user-event"><%= @event.date %></div>
+  <div class="user-event"><%= @event.description %>
+  <% if @event.attendees.any? %>
+    <div class="attendees-container">
+      <% @event.attendees.each do |attendee| %>
+        <p class="attendee"><%= attendee.username %></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>
+
+<%= render partial: 'attend' %>
+
+<br>
+<%= link_to '<<< Go Back', root_path, class: "go-back" %>

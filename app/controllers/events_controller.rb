@@ -9,8 +9,8 @@ class EventsController < ApplicationController
   end
 
   def create
-    user = User.find(session[:current_user]['id'])
-    @event = user.created_events.build(event_params)
+    creator = User.find(session[:current_user]['id'])
+    @event = creator.created_events.build(event_params)
 
     respond_to do |format|
       if @event.save
@@ -29,10 +29,28 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  def attend
+    @event = Event.find(params[:id])
+
+    begin
+      if session[:current_user]
+        attendee = User.find(session[:current_user]['id'])
+        @event.attendees << attendee
+        flash[:success] = 'You are now registered for this event.'
+        redirect_to event_path(@event)
+      else
+        flash[:notice] = 'User is not signed in.'
+        redirect_to root_path
+      end
+    rescue
+      flash.now[:notice] = "You are already registered for this event."
+    end
+  end
+
   private
 
   def event_params
-    params.require(:event).permit(:date)
+    params.require(:event).permit(:date, :description)
   end
 
 end

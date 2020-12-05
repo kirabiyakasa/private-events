@@ -7,7 +7,13 @@
 <% end %>
 
 <%= form_for @event, :html => { :class => "new-event" } do |f| %>
-  <%= f.label :date, 'Event Date:', class: "event-date" %>
-  <%= f.date_field :date, as: :date, value: f.object.try(:strftime, "%m/%d/%Y") %>
+  <%= f.label :description, 'Event Description', class: "event-fields"%>
+  <%= f.text_area :description, class: "event-description" %>
+  <%= f.label :date, 'Event Date:', class: "event-fields" %>
+  <%= f.date_field :date, as: :date,
+  value: f.object.try(:strftime, "%m/%d/%Y"), class: "event-date" %>
   <%= f.submit 'Create Event', class: "submit-button" %>
 <% end %>
+
+<br>
+<%= link_to '<<< Go Back', root_path, class: "go-back" %>
