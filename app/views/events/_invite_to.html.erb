@@ -1,0 +1,19 @@
+<% if notice.nil? == false %>
+  <p class="notice"><%= notice %></p>
+<% end %>
+
+<% if @invite.errors.any? %>
+  <ul>
+  <% @invite.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @invite, :url => invite_to_event_path do |f| %>
+    <%= f.hidden_field :event_id, :value => @invite.event_id %>
+    <p>Invite a User to the Event</p>
+    <%= f.label :username, 'Username:' %>
+    <%= f.text_field :username %>
+    <%= f.submit 'Invite User' %>
+<% end %>

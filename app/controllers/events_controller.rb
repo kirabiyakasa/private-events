@@ -28,6 +28,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @invite = @event.invites.build
   end
 
   private

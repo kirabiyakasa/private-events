@@ -1,4 +1,6 @@
 module EventsHelper
+  #before action for attend
+  #check if event invite exists for current user
 
   def attend
     @event = Event.find(params[:id])
@@ -16,6 +18,28 @@ module EventsHelper
     rescue
       flash.now[:notice] = "You are already registered for this event."
     end
+  end
+
+  def invite_to
+    @event = Event.find(invite_params[:event_id])
+    @invite = @event.invites.build
+    @recipient = User.find_by_username(invite_params[:username])
+
+    @invite.sender_id = session[:current_user]['id']
+    @invite.recipient_id = @recipient.id if @recipient.nil? == false
+
+    if @invite.save
+      flash[:success] = "You have invited #{@recipient.username} to the event."
+      redirect_to event_path(@event)
+    else
+      render "events/show", :id => @event.id
+    end
+  end
+
+  private
+
+  def invite_params
+    params.require(:invite).permit(:username, :event_id)
   end
 
 end

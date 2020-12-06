@@ -11,6 +11,9 @@
       <% end %>
     </div>
   <% end %>
+  <% if @event.creator.id == session[:current_user]['id'] %>
+    <%= render partial: 'invite_to' %>
+  <% end %>
 </div>
 
 <%= render partial: 'attend' %>
