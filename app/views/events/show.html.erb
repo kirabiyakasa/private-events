@@ -5,6 +5,7 @@
   <div class="user-event"><%= @event.description %>
   <% if @event.attendees.any? %>
     <div class="attendees-container">
+      Attendees:
       <% @event.attendees.order(username: :asc).each do |attendee| %>
         <p class="attendee"><%= attendee.username %></p>
       <% end %>

@@ -26,13 +26,32 @@
 
 <section>
   <div class="event-list-container">
-    <% @events.order(date: :asc).each do |event| %>
-      <div class="event-container"></div>
-        <div class="user-event">
-        <%= link_to "Event ##{event.id}", event_path(event.id) %>
-        </div>
-        <div class="user-event"><%= event.date %></div>
-      </div>
-    <% end %>
+    Upcoming Events:
+    <div id="upcoming-events" class="event-container">
+      <% if @events.upcoming_events.any? %>
+        <% @events.upcoming_events.order(date: :asc).each do |event| %>
+          <%= link_to "Event ##{event.id}", event_path(event.id), 
+          class: "user-event" %>
+          <div class="user-event"><%= event.date %></div>
+        <% end %>
+      <% else %>
+        <p>No Upcoming Events</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="event-list-container">
+    Previous Events:
+    <div id="previous-events" class="event-container">
+      <% if @events.previous_events.any? %>
+        <% @events.previous_events.order(date: :desc).each do |event| %>
+          <%= link_to "Event ##{event.id}", event_path(event.id), 
+          class: "user-event" %>
+          <div class="user-event"><%= event.date %></div>
+        <% end %>
+      <% else %>
+        <p>No Previous Events</p>
+      <% end %>
+    </div>
   </div>
 </section>

@@ -7,7 +7,8 @@
   <% if @user.created_events.any? %>
     <% @user.created_events.order(date: :asc).each do |event| %>
       <div id="created-events" class="event-container"></div>
-        <div class="user-event"><%= event.id %></div>
+        <%= link_to "Event ##{event.id}", event_path(event.id), 
+        class: "user-event" %>
         <div class="user-event"><%= event.date %></div>
       </div>
     <% end %>
@@ -21,7 +22,8 @@
   <div id="upcoming-events" class="event-container">
     <% if @user.attended_events.upcoming_events.any? %>
       <% @user.attended_events.upcoming_events.order(date: :asc).each do |event| %>
-        <div class="user-event"><%= event.id %></div>
+        <%= link_to "Event ##{event.id}", event_path(event.id), 
+        class: "user-event" %>
         <div class="user-event"><%= event.date %></div>
       <% end %>
     <% else %>
@@ -35,7 +37,8 @@
   <div id="previous-events" class="event-container">
     <% if @user.attended_events.previous_events.any? %>
       <% @user.attended_events.previous_events.order(date: :desc).each do |event| %>
-        <div class="user-event"><%= event.id %></div>
+        <%= link_to "Event ##{event.id}", event_path(event.id), 
+        class: "user-event" %>
         <div class="user-event"><%= event.date %></div>
       <% end %>
     <% else %>
