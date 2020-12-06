@@ -1,4 +1,3 @@
-
 <div class="event-container"></div>
   <div class="user-name"><%= @event.creator.username %>
   <div class="user-event"><%= "Event ##{@event.id}" %></div>
@@ -6,7 +5,7 @@
   <div class="user-event"><%= @event.description %>
   <% if @event.attendees.any? %>
     <div class="attendees-container">
-      <% @event.attendees.each do |attendee| %>
+      <% @event.attendees.order(username: :asc).each do |attendee| %>
         <p class="attendee"><%= attendee.username %></p>
       <% end %>
     </div>

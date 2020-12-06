@@ -5,4 +5,7 @@ class Event < ApplicationRecord
 
   validates :date, presence: true
   validates :description, presence: true
+
+  scope :upcoming_events, -> { where("date > ?", Date.today) }
+  scope :previous_events, -> { where("date < ?", Date.today) }
 end
