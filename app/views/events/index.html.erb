@@ -1,7 +1,3 @@
-<%# link_to 'Sign up', new_user_path %>
-
-<%# work below %>
-
 <section class="top-bar" >
   <% if session[:current_user] %>
     <div class="current-user-container">
@@ -30,7 +26,7 @@
 
 <section>
   <div class="event-list-container">
-    <% @events.each do |event| %>
+    <% @events.order(date: :asc).each do |event| %>
       <div class="event-container"></div>
         <div class="user-event">
         <%= link_to "Event ##{event.id}", event_path(event.id) %>

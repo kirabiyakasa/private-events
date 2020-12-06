@@ -2,18 +2,47 @@
   <%= @user.username %>
 </div>
 
-<% if @user.created_events.any? %>
-  <div class="event-list-container">
-    <% @user.created_events.each do |event| %>
-      <div class="event-container"></div>
+<div class="event-list-container">
+  Created Events:
+  <% if @user.created_events.any? %>
+    <% @user.created_events.order(date: :asc).each do |event| %>
+      <div id="created-events" class="event-container"></div>
         <div class="user-event"><%= event.id %></div>
         <div class="user-event"><%= event.date %></div>
       </div>
     <% end %>
+  <% else %>
+    <p>No created Events</p>
+  <% end %>
+</div>
+
+<div class="event-list-container">
+  Upcoming Events:
+  <div id="upcoming-events" class="event-container">
+    <% if @user.attended_events.upcoming_events.any? %>
+      <% @user.attended_events.upcoming_events.order(date: :asc).each do |event| %>
+        <div class="user-event"><%= event.id %></div>
+        <div class="user-event"><%= event.date %></div>
+      <% end %>
+    <% else %>
+      <p>No Upcoming Events</p>
+    <% end %>
   </div>
-<% else %>
-  <%# do something else maybe? %>
-<% end %>
+</div>
+
+<div class="event-list-container">
+  Previously Attended Events:
+  <div id="previous-events" class="event-container">
+    <% if @user.attended_events.previous_events.any? %>
+      <% @user.attended_events.previous_events.order(date: :desc).each do |event| %>
+        <div class="user-event"><%= event.id %></div>
+        <div class="user-event"><%= event.date %></div>
+      <% end %>
+    <% else %>
+      <p>No Previously Attended Events</p>
+    <% end %>
+  </div>
+</div>
 
 <br>
 <%= link_to '<<< Go Back', root_path, class: "go-back" %>
