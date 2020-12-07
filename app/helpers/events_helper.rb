@@ -56,7 +56,8 @@ module EventsHelper
   #check if current user is inviting themselves
   def recipient_is_sender?
     event = Event.find(params[:id])
-    if event.creator.id == (session[:current_user]['id'])
+    user = User.find_by_username(invite_params[:username])
+    if event.creator.id == (user.id)
       flash[:notice] = "You cannot invite yourself."
       redirect_to event_path(event)
     end
