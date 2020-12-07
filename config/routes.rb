@@ -7,8 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  #resources :invites, only: [:create]
-
   resources :user_sessions, only: [:new, :create, :destroy]
 
   root 'events#index'

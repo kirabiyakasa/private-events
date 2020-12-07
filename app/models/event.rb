@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   has_many :attendees, through: :user_events
 
   has_many :invites
+  validates_associated :invites
 
   validates :date, presence: true
   validates :description, presence: true

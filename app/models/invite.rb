@@ -1,5 +1,4 @@
 class Invite < ApplicationRecord
-
   belongs_to :sender, class_name: 'User'
   belongs_to :recipient, class_name: 'User'
 
@@ -8,6 +7,5 @@ class Invite < ApplicationRecord
   validates :sender_id, presence: true
   validates :recipient_id, presence: true
   validates :event_id, presence: true
-  validates_uniqueness_of :username, :scope => [:event_id],
-  message: "does not exist or you have already sent an invite."
+  validates :recipient_id, uniqueness: { scope: :event_id }
 end

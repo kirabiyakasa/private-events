@@ -1,6 +1,4 @@
 module EventsHelper
-  #before action for attend
-  #check if event invite exists for current user
 
   def attend
     @event = Event.find(params[:id])
@@ -9,6 +7,10 @@ module EventsHelper
       if session[:current_user]
         attendee = User.find(session[:current_user]['id'])
         @event.attendees << attendee
+
+        @invite = Invite.find_by_recipient_id(attendee.id)
+        @invite.destroy 
+
         flash[:success] = 'You are now registered for this event.'
         redirect_to event_path(@event)
       else
@@ -41,5 +43,15 @@ module EventsHelper
   def invite_params
     params.require(:invite).permit(:username, :event_id)
   end
+
+  def invited?
+    event = Event.find(params[:id])
+    unless event.invites.find_by_recipient_id(session[:current_user]['id'])
+      flash[:notice] = "You have not been invited to this event."
+      redirect_to event_path(event)
+    end
+  end
+
+  #same user?
 
 end

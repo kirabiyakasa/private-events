@@ -11,12 +11,18 @@
       <% end %>
     </div>
   <% end %>
-  <% if @event.creator.id == session[:current_user]['id'] %>
+  <% if session[:current_user] && 
+  @event.creator.id == session[:current_user]['id'] %>
     <%= render partial: 'invite_to' %>
+  <% else %>
+    <div></div><!-- some stuff -->
   <% end %>
 </div>
 
-<%= render partial: 'attend' %>
+<% if session[:current_user] &&
+@event.invites.find_by_recipient_id(session[:current_user]['id']) %>
+  <%= render partial: 'attend' %>
+<% end %>
 
 <br>
 <%= link_to '<<< Go Back', root_path, class: "go-back" %>
