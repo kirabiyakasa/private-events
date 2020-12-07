@@ -44,6 +44,25 @@ module EventsHelper
     params.require(:invite).permit(:username, :event_id)
   end
 
+  #check if user is already an attendee when inviting
+  def attended?
+    event = Event.find(params[:id])
+    if event.attendees.find_by_username(invite_params[:username])
+      flash[:notice] = "User is already an attendee."
+      redirect_to event_path(event)
+    end
+  end
+
+  #check if current user is inviting themselves
+  def recipient_is_sender?
+    event = Event.find(params[:id])
+    if event.creator.id == (session[:current_user]['id'])
+      flash[:notice] = "You cannot invite yourself."
+      redirect_to event_path(event)
+    end
+  end
+
+  #check if user is already invited
   def invited?
     event = Event.find(params[:id])
     unless event.invites.find_by_recipient_id(session[:current_user]['id'])
@@ -51,7 +70,5 @@ module EventsHelper
       redirect_to event_path(event)
     end
   end
-
-  #same user?
 
 end

@@ -1,7 +1,11 @@
 class EventsController < ApplicationController
   include EventsHelper
   before_action :invited?
+  before_action :attended?
+  before_action :recipient_is_sender?
   skip_before_action :invited?, except: [:attend]
+  skip_before_action :attended?, except: [:invite_to]
+  skip_before_action :recipient_is_sender?, except: [:invite_to]
 
   def index
     @events = Event.all
