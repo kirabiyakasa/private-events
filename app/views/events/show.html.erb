@@ -1,8 +1,9 @@
-<div class="event-container"></div>
-  <div class="user-name"><%= @event.creator.username %>
-  <div class="user-event"><%= "Event ##{@event.id}" %></div>
-  <div class="user-event"><%= @event.date %></div>
-  <div class="user-event"><%= @event.description %>
+<div class="show-event-container">
+<div class="show-user-event"></div>
+  <div class="user-name"><%= @event.creator.username %></div>
+  <div class="event-text"><%= "Event ##{@event.id}" %></div>
+  <div class="event-text"><%= @event.date.strftime('%m/%d/%Y') %></div>
+  <div class="event-text"><%= @event.description %></div>
   <% if @event.attendees.any? %>
     <div class="attendees-container">
       Attendees:
@@ -17,6 +18,7 @@
   <% else %>
     <div></div><!-- some stuff -->
   <% end %>
+</div>
 </div>
 
 <% if session[:current_user] &&

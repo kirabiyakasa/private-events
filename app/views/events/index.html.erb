@@ -1,38 +1,48 @@
-<section class="top-bar" >
+<section id="top-bar" >
   <% if session[:current_user] %>
-    <div class="current-user-container">
-      <div class="current-user">Current User:</div>
-      <div class="current-user-name">
-      <%= link_to session[:current_user]['username'],
-      user_path(session[:current_user]['id']) %>
+    <div class="left-button-container">
+      <div class="current-user-container">
+        <div class="current-user">Current User:</div>
+        <div>
+        <%= link_to session[:current_user]['username'],
+        user_path(session[:current_user]['id']), class: "current-user-name" %>
+        </div>
+      </div>
+      <div class="top-left-buttons">
+        <%= link_to 'New Event', new_event_path, class: "top-buttons" %>
       </div>
     </div>
-    <div class="top-left-buttons">
-      <%= link_to 'New Event', new_event_path, class: "top-buttons" %>
-    </div>
-    <div class="top-right-buttons">
-      <%= link_to 'Sign Out', user_session_path(session), method: :delete,
-      class: "top-buttons" %>
+    <div class="right-button-container">
+      <div class="top-right-buttons">
+        <%= link_to 'Sign Out', user_session_path(session), method: :delete,
+        class: "top-buttons" %>
+      </div>
     </div>
   <% else %>
-    <div class="top-left-buttons">
-      <%= link_to 'Sign in', new_user_session_path, class: "top-buttons" %>
+    <div class="left-button-container">
+      <div class="top-left-buttons">
+        <%= link_to 'Sign in', new_user_session_path, class: "top-buttons" %>
+      </div>
     </div>
-    <div class="top-right-buttons">
-      <%= link_to 'Sign up', new_user_path, class: "top-buttons" %>
+    <div class="right-button-container">
+      <div class="top-right-buttons">
+        <%= link_to 'Sign up', new_user_path, class: "top-buttons" %>
+      </div>
     </div>
   <% end %>
 </section>
 
-<section>
+<section id="events">
   <div class="event-list-container">
-    Upcoming Events:
+    <p class="event-category">Upcoming Events:</p>
     <div id="upcoming-events" class="event-container">
       <% if @events.upcoming_events.any? %>
         <% @events.upcoming_events.order(date: :asc).each do |event| %>
-          <%= link_to "Event ##{event.id}", event_path(event.id), 
-          class: "user-event" %>
-          <div class="user-event"><%= event.date %></div>
+          <div class="user-event">
+            <%= link_to "Event ##{event.id}", event_path(event.id), 
+            class: "event-text" %>
+            <div class="event-text"><%= event.date.strftime('%m/%d/%Y') %></div>
+          </div>
         <% end %>
       <% else %>
         <p>No Upcoming Events</p>
@@ -41,13 +51,15 @@
   </div>
 
   <div class="event-list-container">
-    Previous Events:
+    <p class="event-category">Previous Events:</p>
     <div id="previous-events" class="event-container">
       <% if @events.previous_events.any? %>
         <% @events.previous_events.order(date: :desc).each do |event| %>
-          <%= link_to "Event ##{event.id}", event_path(event.id), 
-          class: "user-event" %>
-          <div class="user-event"><%= event.date %></div>
+          <div class="user-event">
+            <%= link_to "Event ##{event.id}", event_path(event.id), 
+            class: "event-text" %>
+            <div class="event-text"><%= event.date.strftime('%m/%d/%Y') %></div>
+          </div>
         <% end %>
       <% else %>
         <p>No Previous Events</p>

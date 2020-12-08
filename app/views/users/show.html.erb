@@ -3,28 +3,32 @@
 </div>
 
 <div class="event-list-container">
-  Created Events:
-  <% if @user.created_events.any? %>
-    <% @user.created_events.order(date: :asc).each do |event| %>
-      <div id="created-events" class="event-container"></div>
-        <%= link_to "Event ##{event.id}", event_path(event.id), 
-        class: "user-event" %>
-        <div class="user-event"><%= event.date %></div>
-      </div>
+  <p class="event-category">Created Events:</p>
+  <div id="created-events" class="event-container">
+    <% if @user.created_events.any? %>
+      <% @user.created_events.order(date: :asc).each do |event| %>
+        <div class="user-event">
+          <%= link_to "Event ##{event.id}", event_path(event.id), 
+          class: "event-text" %>
+          <div class="event-text"><%= event.date %></div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No created Events</p>
     <% end %>
-  <% else %>
-    <p>No created Events</p>
-  <% end %>
+  </div>
 </div>
 
 <div class="event-list-container">
-  Upcoming Events:
+  <p class="event-category">Upcoming Events:</p>
   <div id="upcoming-events" class="event-container">
     <% if @user.attended_events.upcoming_events.any? %>
       <% @user.attended_events.upcoming_events.order(date: :asc).each do |event| %>
-        <%= link_to "Event ##{event.id}", event_path(event.id), 
-        class: "user-event" %>
-        <div class="user-event"><%= event.date %></div>
+        <div class="user-event">
+          <%= link_to "Event ##{event.id}", event_path(event.id), 
+          class: "event-text" %>
+          <div class="event-text"><%= event.date %></div>
+        </div>
       <% end %>
     <% else %>
       <p>No Upcoming Events</p>
@@ -33,13 +37,15 @@
 </div>
 
 <div class="event-list-container">
-  Previously Attended Events:
+  <p class="event-category">Previous Events:</p>
   <div id="previous-events" class="event-container">
     <% if @user.attended_events.previous_events.any? %>
       <% @user.attended_events.previous_events.order(date: :desc).each do |event| %>
-        <%= link_to "Event ##{event.id}", event_path(event.id), 
-        class: "user-event" %>
-        <div class="user-event"><%= event.date %></div>
+        <div class="user-event">
+          <%= link_to "Event ##{event.id}", event_path(event.id), 
+          class: "event-text" %>
+          <div class="event-text"><%= event.date %></div>
+        </div>
       <% end %>
     <% else %>
       <p>No Previously Attended Events</p>
