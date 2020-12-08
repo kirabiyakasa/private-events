@@ -33,12 +33,6 @@ body {
   padding-bottom: 5px;
 }
 
-.top-left-buttons {
-}
-
-.top-right-buttons {
-}
-
 .current-user-container {
   display: flex;
   flex-direction: row;
@@ -88,7 +82,7 @@ body {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
 }
 
-.event-category {
+.list-category {
   font-family: sans-serif;
   font-size: 30px;
   font-weight: bold;
@@ -97,8 +91,7 @@ body {
 }
 
 .event-container {
-  min-height: 750px;
-  max-height: 750px;
+  height: 750px;
   border-style: dotted;
   border-right: transparent;
   border-bottom: transparent;
@@ -113,11 +106,82 @@ body {
   outline: solid 1px black;
 }
 
+.user-event:hover {
+  background-color: white;
+}
+
 .event-text {
   font-size: 25px;
+}
+
+/* events#show */
+
+.main-event-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.show-event-container {
+  flex-grow: 1;
+  margin: 1%;
+  max-width: 600px;
+  min-height: 750px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(146, 143, 143);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
+}
+
+#event-go-back-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.attendee-list {
+  height: 500px;
+  border-style: dotted;
+  border-right: transparent;
+  border-bottom: transparent;
+  border-color: black;
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+
+.attendee {
+  display: block;
+  margin: 5px;
+  padding-left: 6px;
+  font-size: 25px;
+  background-color: lightcyan;
+}
+
+.attendee:hover {
+  background-color: white;
 }
 
 .user-name {
   font-family: sans-serif;
   font-size: 28px;
+}
+
+.invite-form-container {
+  font-size: 20px;
+}
+
+.attend-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.attend-button {
+  margin: 10px;
+  text-align: center;
+  font-size: 22px;
+  width: 150px;
+  height: 50px;
+}
+
+.go-back {
+  align-self: center;
 }

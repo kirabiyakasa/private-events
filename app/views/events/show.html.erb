@@ -1,30 +1,39 @@
-<div class="show-event-container">
-<div class="show-user-event"></div>
-  <div class="user-name"><%= @event.creator.username %></div>
-  <div class="event-text"><%= "Event ##{@event.id}" %></div>
-  <div class="event-text"><%= @event.date.strftime('%m/%d/%Y') %></div>
-  <div class="event-text"><%= @event.description %></div>
-  <% if @event.attendees.any? %>
-    <div class="attendees-container">
-      Attendees:
-      <% @event.attendees.order(username: :asc).each do |attendee| %>
-        <p class="attendee"><%= attendee.username %></p>
+<section id="event-go-back-container">
+  <div class="main-event-container">
+    <div class="show-event-container">
+      <div class="user-name"><b><%= @event.creator.username %></b></div>
+      <div class="event-text"><%= "Event ##{@event.id}" %></div>
+      <div class="event-text">
+        <%= "Event Date: #{@event.date.strftime('%m/%d/%Y')}" %>
+      </div>
+      <br>
+      <div class="event-text">
+        <b>Event Description:</b><br>
+        <%= @event.description %>
+      </div>
+      <% if @event.attendees.any? %>
+        <div class="attendees-container">
+          <p class="list-category">Attendees:</p>
+          <div class="attendee-list">
+            <% @event.attendees.order(username: :asc).each do |attendee| %>
+              <p class="attendee"><%= attendee.username %></p>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <p>No Attendees</p>
+      <% end %>
+
+      <% if session[:current_user] && 
+        @event.creator.id == session[:current_user]['id'] %>
+        <%= render partial: 'invite_to' %>
+      <% end %>
+
+      <% if session[:current_user] &&
+            @event.invites.find_by_recipient_id(session[:current_user]['id']) %>
+        <%= render partial: 'attend' %>
       <% end %>
     </div>
-  <% end %>
-  <% if session[:current_user] && 
-  @event.creator.id == session[:current_user]['id'] %>
-    <%= render partial: 'invite_to' %>
-  <% else %>
-    <div></div><!-- some stuff -->
-  <% end %>
-</div>
-</div>
-
-<% if session[:current_user] &&
-@event.invites.find_by_recipient_id(session[:current_user]['id']) %>
-  <%= render partial: 'attend' %>
-<% end %>
-
-<br>
-<%= link_to '<<< Go Back', root_path, class: "go-back" %>
+  </div>
+  <%= link_to '<<< Go Back', root_path, class: "go-back" %>
+<section>

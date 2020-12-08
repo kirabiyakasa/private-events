@@ -46,7 +46,7 @@ module EventsHelper
 
   #check if user is already an attendee when inviting
   def attended?
-    event = Event.find(params[:id])
+    event = Event.where(id: "#{params[:id]}")[0]
     if event.attendees.find_by_username(invite_params[:username])
       flash[:notice] = "User is already an attendee."
       redirect_to event_path(event)
@@ -55,9 +55,9 @@ module EventsHelper
 
   #check if current user is inviting themselves
   def recipient_is_sender?
-    event = Event.find(params[:id])
-    user = User.find_by_username(invite_params[:username])
-    if event.creator.id == (user.id)
+    event = Event.where(id: "#{params[:id]}")[0]
+    user = User.where(username: "#{invite_params[:username]}")[0]
+    if event.creator.id == user.id
       flash[:notice] = "You cannot invite yourself."
       redirect_to event_path(event)
     end
@@ -65,7 +65,7 @@ module EventsHelper
 
   #check if user is already invited
   def invited?
-    event = Event.find(params[:id])
+    event = Event.where(id: "#{params[:id]}")[0]
     unless event.invites.find_by_recipient_id(session[:current_user]['id'])
       flash[:notice] = "You have not been invited to this event."
       redirect_to event_path(event)

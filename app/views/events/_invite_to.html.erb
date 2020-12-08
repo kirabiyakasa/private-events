@@ -10,7 +10,8 @@
   </ul>
 <% end %>
 
-<%= form_for @invite, :url => invite_to_event_path do |f| %>
+<%= form_for @invite, :url => invite_to_event_path,
+    :html => { class: "invite-form-container" } do |f| %>
     <%= f.hidden_field :event_id, :value => @invite.event_id %>
     <p>Invite a User to the Event</p>
     <%= f.label :username, 'Username:' %>

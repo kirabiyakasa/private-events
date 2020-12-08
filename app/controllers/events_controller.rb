@@ -9,6 +9,8 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @upcoming_events = @events.upcoming_events.order(date: :asc)
+    @previous_events = @events.previous_events.order(date: :desc)
   end
 
   def new
@@ -33,7 +35,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.eager_load([:creator, :attendees]).find(params[:id])
     @invite = @event.invites.build
   end
 

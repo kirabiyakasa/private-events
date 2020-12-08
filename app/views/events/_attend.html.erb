@@ -1,3 +1,4 @@
-<%= form_for @event, url: attend_event_path do |f| %>
-  <% f.button 'Attend Event' %>
+<%= form_for @event, url: attend_event_path,
+    :html => { class: "attend-button-container" } do |f| %>
+  <% f.button 'Attend Event', class: "attend-button" %>
 <% end %>
