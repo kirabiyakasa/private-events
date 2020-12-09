@@ -31,9 +31,14 @@
       <% if @upcoming_events.any? %>
         <% @upcoming_events.each do |event| %>
           <div class="user-event">
-            <%= link_to "Event ##{event.id}", event_path(event.id), 
-            class: "event-text" %>
-            <div class="event-text"><%= event.date.strftime('%m/%d/%Y') %></div>
+            <%= link_to event_path(event.id), class: "event-link" do %>
+              <div>
+                <%= "Event ##{event.id}" %>
+              </div>
+              <div>
+                <%= event.date.strftime('%m/%d/%Y') %>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <% else %>
@@ -48,9 +53,14 @@
       <% if @previous_events.any? %>
         <% @previous_events.each do |event| %>
           <div class="user-event">
-            <%= link_to "Event ##{event.id}", event_path(event.id), 
-            class: "event-text" %>
-            <div class="event-text"><%= event.date.strftime('%m/%d/%Y') %></div>
+            <%= link_to event_path(event.id), class: "event-link" do %>
+              <div>
+                <%= "Event ##{event.id}" %>
+              </div>
+              <div>
+                <%= event.date.strftime('%m/%d/%Y') %>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <% else %>
