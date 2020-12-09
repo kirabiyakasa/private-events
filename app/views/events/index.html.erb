@@ -30,16 +30,16 @@
     <div id="upcoming-events" class="event-container">
       <% if @upcoming_events.any? %>
         <% @upcoming_events.each do |event| %>
-          <div class="user-event">
-            <%= link_to event_path(event.id), class: "event-link" do %>
+          <%= link_to event_path(event.id), class: "event-link" do %>
+            <div class="user-event">
               <div>
                 <%= "Event ##{event.id}" %>
               </div>
               <div>
                 <%= event.date.strftime('%m/%d/%Y') %>
               </div>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% end %>
       <% else %>
         <p>No Upcoming Events</p>
